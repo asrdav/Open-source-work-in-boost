@@ -139,7 +139,6 @@ public:
         this->height = sqrt(this->template get<0>() * this->template get<0>() + this->template get<1>() * this->template get<1>()) / cos(latitude) - earth_a / (sqrt(1 - earth_e12 * sin(latitude) * sin(latitude)));
     }
 
-    /// Set z-value
     inline void z(CoordinateType const& v)
     { 
         this->template set<2>(v);

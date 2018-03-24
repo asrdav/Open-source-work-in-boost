@@ -82,15 +82,15 @@ public:
     inline earth_point(CoordinateType const& x, CoordinateType const& y, CoordinateType const& z)
         : model::point<CoordinateType, 3, CoordinateSystem>(x, y, z)
     {}   
+    
+    inline CoordinateType const& z() const
+    { return this->template get<2>(); }
 
     inline CoordinateType const& x() const
     { return this->template get<0>(); }
 
     inline CoordinateType const& y() const
     { return this->template get<1>(); }
-
-    inline CoordinateType const& z() const
-    { return this->template get<2>(); }
     
      inline double const& get_lat() const
     {

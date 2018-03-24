@@ -1,6 +1,3 @@
-#ifndef BOOST_GEOMETRY_GEOMETRIES_EARTH_POINT_HPP
-#define BOOST_GEOMETRY_GEOMETRIES_EARTH_POINT_HPP
-
 #include <cstddef>
 #include <cmath>
 #include <algorithm>
@@ -34,14 +31,11 @@ private:
 public:
 
 #ifndef BOOST_NO_CXX11_DEFAULTED_FUNCTIONS
-    /// \constructor_default_no_init
     earth_point() = default;
 #else
-    /// \constructor_default_no_init
     inline earth_point()
     {}
-#endif
-    /// Constructor with longitude and latitude 
+#endif 
     inline earth_point(double const& long_degree, double const& long_minute, double const& long_second, std::string const& long_direct, double const& lat_degree, double const&  lat_minute, double const& lat_second, std::string const& lat_direct, double const& H)
     {
         this->height = H;
@@ -91,7 +85,6 @@ public:
             this->template set<2>(cartesian_z);
         }
     }
-    /// Constructor with x/y/z values
     inline earth_point(CoordinateType const& x, CoordinateType const& y, CoordinateType const& z)
         : model::point<CoordinateType, 3, CoordinateSystem>(x, y, z)
     {
@@ -102,37 +95,30 @@ public:
         this->height = sqrt(this->template get<0>() * this->template get<0>() + this->template get<1>() * this->template get<1>()) / cos(latitude) - earth_a / (sqrt(1 - earth_e12 * sin(latitude) * sin(latitude)));
     }   
 
-    /// Get x-value
     inline CoordinateType const& x() const
     { return this->template get<0>(); }
 
-    /// Get y-value
     inline CoordinateType const& y() const
     { return this->template get<1>(); }
 
-    /// Get z-value
     inline CoordinateType const& z() const
     { return this->template get<2>(); }
 
-    /// Get longitude
     inline double const& get_long() const
     {    
         return this->longitude; 
     }
 
-    /// Get latitude
     inline double const& get_lat() const
     {
         return this->latitude;
     }
 
-    /// Get height
     inline double const& get_H() const
     {
         return this->height;
     }
 
-    /// Set x-value
     inline void x(CoordinateType const& v)
     {
         this->template set<0>(v);
@@ -143,7 +129,6 @@ public:
         this->height = sqrt(this->template get<0>() * this->template get<0>() + this->template get<1>() * this->template get<1>()) / cos(latitude) - earth_a / (sqrt(1 - earth_e12 * sin(latitude) * sin(latitude)));
     }
 
-    /// Set y-value
     inline void y(CoordinateType const& v)
     { 
         this->template set<1>(v);
@@ -165,7 +150,6 @@ public:
         this->height = sqrt(this->template get<0>() * this->template get<0>() + this->template get<1>() * this->template get<1>()) / cos(latitude) - earth_a / (sqrt(1 - earth_e12 * sin(latitude) * sin(latitude)));
     }
 
-    /// Set longitude
     inline void set_long(double const& v, std::string const& NumericalType)
     { 
         if(NumericalType == "Redian")
@@ -182,7 +166,6 @@ public:
         this->template set<2>(cartesian_z);
     }
 
-    /// Set latitude
     inline void set_lat(double const& v, std::string const& NumericalType)
     { 
         if(NumericalType == "Redian")
@@ -199,7 +182,6 @@ public:
         this->template set<2>(cartesian_z);
     }
 
-    /// Set height
     inline void set_H(double const& v)
     { 
         this->height = v;
@@ -214,8 +196,7 @@ public:
     }
 
     inline double shortest_distance_Vincenty(earth_point const& ep2)
-    {
-        //std::cout<<this->longitude<<' '<<this->latitude<<"  "<<ep2.get_long()<<' '<<ep2.get_lat()<<std::endl;     
+    { 
         double lambda_1, lambda_2, alfa_1, alfa_2, sin_alfa, cos2_alfa;
         double tanU1, tanU2, L, s, arc_lenth, sign, sign_;
 
@@ -232,7 +213,6 @@ public:
         sinU1 = tanU1 * cosU1;
         cosU2 = 1 / sqrt(1 + tanU2 * tanU2);
         sinU2 = tanU2 * cosU2;
-        //std::cout<<cosU1<<' '<<cosU2<<' '<<sinU1<<' '<<sinU2<<std::endl;
         cc_U1U2 = cosU1 * cosU2;
         ss_U1U2 = sinU1 * sinU2;
         cs_U1U2 = cosU1 * sinU2;
@@ -265,7 +245,6 @@ public:
             
             sign_ = sign;
             sign = L + (1 - C) * earth_f * sin_alfa * (arc_lenth + C * sin_arc * (cos_2arcm + C * cos_arc * (-1 + 2 * cos_2arcm * cos_2arcm)));
-            //std::cout<<sign<<' '<<sign_<<' '<<std::endl;
             temp--;
         }while(fabs(sign - sign_) > eps && temp > 0);
         if(temp == 0){
@@ -284,10 +263,7 @@ public:
 };
 
 
-}} // namespace model::d3
-
-
-// Adapt the earth_point to the concept
+}} 
 #ifndef DOXYGEN_NO_TRAITS_SPECIALIZATIONS
 namespace traits
 {
@@ -331,9 +307,9 @@ struct access<model::d3::earth_point<CoordinateType, CoordinateSystem>, Dimensio
     }
 };
 
-} // namespace traits
-#endif // DOXYGEN_NO_TRAITS_SPECIALIZATIONS
+} 
+#endif 
 
-}} // namespace boost::geometry
+}} 
 
-#endif // BOOST_GEOMETRY_GEOMETRIES_earth_point_HPP
+#endif 

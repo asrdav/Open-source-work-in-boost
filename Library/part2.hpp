@@ -148,13 +148,13 @@ public:
         this->longitude = atan(this->template get<1>() / this->template get<0>());
         this->height = sqrt(this->template get<0>() * this->template get<0>() + this->template get<1>() * this->template get<1>()) / cos(latitude) - earth_a / (sqrt(1 - earth_e12 * sin(latitude) * sin(latitude)));
     }
-
-    inline void set_long(double const& v, std::string const& NumericalType)
+    
+    inline void set_lat(double const& v, std::string const& NumericalType)
     { 
         if(NumericalType == "Redian")
-        { this->longitude = v; }
+        { this->latitude = v; }
         else if(NumericalType == "Angle")
-        { this->longitude = v * PI / 180; }
+        { this->latitude = v * PI / 180; } 
         double cartesian_x, cartesian_y, cartesian_z;
         cartesian_x = (earth_a / (sqrt(1 - earth_e12 * sin(latitude) * sin(latitude))) + height) * cos(latitude) * cos(longitude);
         cartesian_y = (earth_a / (sqrt(1 - earth_e12 * sin(latitude) * sin(latitude))) + height) * cos(latitude) * sin(longitude);
@@ -165,12 +165,12 @@ public:
         this->template set<2>(cartesian_z);
     }
 
-    inline void set_lat(double const& v, std::string const& NumericalType)
+    inline void set_long(double const& v, std::string const& NumericalType)
     { 
         if(NumericalType == "Redian")
-        { this->latitude = v; }
+        { this->longitude = v; }
         else if(NumericalType == "Angle")
-        { this->latitude = v * PI / 180; } 
+        { this->longitude = v * PI / 180; }
         double cartesian_x, cartesian_y, cartesian_z;
         cartesian_x = (earth_a / (sqrt(1 - earth_e12 * sin(latitude) * sin(latitude))) + height) * cos(latitude) * cos(longitude);
         cartesian_y = (earth_a / (sqrt(1 - earth_e12 * sin(latitude) * sin(latitude))) + height) * cos(latitude) * sin(longitude);

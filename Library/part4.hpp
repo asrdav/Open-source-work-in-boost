@@ -82,15 +82,15 @@ public:
     inline earth_point(CoordinateType const& x, CoordinateType const& y, CoordinateType const& z)
         : model::point<CoordinateType, 3, CoordinateSystem>(x, y, z)
     {}   
-    
-    inline CoordinateType const& z() const
-    { return this->template get<2>(); }
 
     inline CoordinateType const& x() const
     { return this->template get<0>(); }
 
     inline CoordinateType const& y() const
     { return this->template get<1>(); }
+    
+    inline CoordinateType const& z() const
+    { return this->template get<2>(); }
     
      inline double const& get_lat() const
     {
@@ -102,11 +102,6 @@ public:
         return this->longitude; 
     }
     
-    inline void z(CoordinateType const& v)
-    { 
-        this->template set<2>(v);
-    }
-    
     inline void x(CoordinateType const& v)
     {
         this->template set<0>(v);
@@ -116,13 +111,18 @@ public:
     { 
         this->template set<1>(v);
     }
-
-    inline void set_long(double const& v, std::string const& NumericalType)
+    
+    inline void z(CoordinateType const& v)
+    { 
+        this->template set<2>(v);
+    }
+    
+    inline void set_lat(double const& v, std::string const& NumericalType)
     { 
         if(NumericalType == "Redian")
-        { this->longitude = v; }
+        { this->latitude = v; }
         else if(NumericalType == "Angle")
-        { this->longitude = v * PI / 180; }
+        { this->latitude = v * PI / 180; } 
         double cartesian_x, cartesian_y, cartesian_z;
         cartesian_x = cos(latitude) * cos(longitude);
         cartesian_y = cos(latitude) * sin(longitude);
@@ -133,12 +133,12 @@ public:
         this->template set<2>(cartesian_z);
     }
 
-    inline void set_lat(double const& v, std::string const& NumericalType)
+    inline void set_long(double const& v, std::string const& NumericalType)
     { 
         if(NumericalType == "Redian")
-        { this->latitude = v; }
+        { this->longitude = v; }
         else if(NumericalType == "Angle")
-        { this->latitude = v * PI / 180; } 
+        { this->longitude = v * PI / 180; }
         double cartesian_x, cartesian_y, cartesian_z;
         cartesian_x = cos(latitude) * cos(longitude);
         cartesian_y = cos(latitude) * sin(longitude);

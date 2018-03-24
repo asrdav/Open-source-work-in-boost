@@ -93,27 +93,27 @@ public:
         this->latitude = atan((this->template get<2>() + earth_e22 * earth_b * sin(theta) * sin(theta) * sin(theta)) / (sqrt(this->template get<0>() * this->template get<0>() + this->template get<1>() * this->template get<1>()) - earth_e12 * earth_a * cos(theta) * cos(theta) * cos(theta)));
         this->longitude = atan(this->template get<1>() / this->template get<0>());
         this->height = sqrt(this->template get<0>() * this->template get<0>() + this->template get<1>() * this->template get<1>()) / cos(latitude) - earth_a / (sqrt(1 - earth_e12 * sin(latitude) * sin(latitude)));
-    }   
+    }
 
     inline CoordinateType const& x() const
     { return this->template get<0>(); }
 
     inline CoordinateType const& y() const
     { return this->template get<1>(); }
-
+  
     inline CoordinateType const& z() const
     { return this->template get<2>(); }
+    
+     inline double const& get_lat() const
+    {
+        return this->latitude;
+    }
 
     inline double const& get_long() const
     {    
         return this->longitude; 
     }
-
-    inline double const& get_lat() const
-    {
-        return this->latitude;
-    }
-
+    
     inline double const& get_H() const
     {
         return this->height;

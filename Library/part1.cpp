@@ -1,6 +1,6 @@
 #include <iostream>
 #include <boost/geometry.hpp>
-#include <boost/geometry/geometries/p2.hpp>
+#include <boost/geometry/geometries/part2.hpp>
 
 namespace bg = boost::geometry;
 

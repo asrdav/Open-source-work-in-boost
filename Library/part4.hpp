@@ -26,14 +26,11 @@ private:
 public:
 
 #ifndef BOOST_NO_CXX11_DEFAULTED_FUNCTIONS
-    /// \constructor_default_no_init
     earth_point() = default;
 #else
-    /// \constructor_default_no_init
     inline earth_point()
     {}
 #endif
-    /// Constructor with longitude and latitude 
     inline earth_point(double const& long_degree, double const& long_minute, double const& long_second, std::string const& long_direct, double const& lat_degree, double const&  lat_minute, double const& lat_second, std::string const& lat_direct)
     {
         this->longitude = (long_degree + long_minute/(double) 60+ long_second/(double)3600)* PI /(double)180;
@@ -82,54 +79,44 @@ public:
             this->template set<2>(cartesian_z);
         }
     }
-    /// Constructor with x/y/z values
     inline earth_point(CoordinateType const& x, CoordinateType const& y, CoordinateType const& z)
         : model::point<CoordinateType, 3, CoordinateSystem>(x, y, z)
     {}   
 
-    /// Get x-value
     inline CoordinateType const& x() const
     { return this->template get<0>(); }
 
-    /// Get y-value
     inline CoordinateType const& y() const
     { return this->template get<1>(); }
 
-    /// Get z-value
     inline CoordinateType const& z() const
     { return this->template get<2>(); }
-
-    /// Get longitude
-    inline double const& get_long() const
-    {    
-        return this->longitude; 
-    }
-
-    /// Get latitude
-    inline double const& get_lat() const
+    
+     inline double const& get_lat() const
     {
         return this->latitude;
     }
 
-    /// Set x-value
+    inline double const& get_long() const
+    {    
+        return this->longitude; 
+    }
+    
+    inline void z(CoordinateType const& v)
+    { 
+        this->template set<2>(v);
+    }
+    
     inline void x(CoordinateType const& v)
     {
         this->template set<0>(v);
     }
 
-    /// Set y-value
     inline void y(CoordinateType const& v)
     { 
         this->template set<1>(v);
     }
 
-    /// Set z-value
-    inline void z(CoordinateType const& v)
-    { 
-        this->template set<2>(v);
-    }
-
-    /// Set longitude
     inline void set_long(double const& v, std::string const& NumericalType)
     { 
         if(NumericalType == "Redian")
@@ -146,7 +133,6 @@ public:
         this->template set<2>(cartesian_z);
     }
 
-    /// Set latitude
     inline void set_lat(double const& v, std::string const& NumericalType)
     { 
         if(NumericalType == "Redian")
@@ -172,10 +158,9 @@ public:
 };
 
 
-}} // namespace model::d3
+}} 
 
 
-// Adapt the earth_point to the concept
 #ifndef DOXYGEN_NO_TRAITS_SPECIALIZATIONS
 namespace traits
 {
@@ -219,9 +204,9 @@ struct access<model::d3::earth_point<CoordinateType, CoordinateSystem>, Dimensio
     }
 };
 
-} // namespace traits
-#endif // DOXYGEN_NO_TRAITS_SPECIALIZATIONS
+} 
+#endif 
 
-}} // namespace boost::geometry
+}} 
 
-#endif // BOOST_GEOMETRY_GEOMETRIES_earth_point_HPP
+#endif 
